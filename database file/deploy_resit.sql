@@ -94,6 +94,7 @@ INSERT INTO `resit` (`id`, `jabatan`, `bahagian`, `name`, `ndp`, `sesi`, `semest
 (20, 'elektrik & elektrikal', 'diploma teknologi komputer', 'faris ilyas', '1612389', '2/25', 'Semester 2', 'Senarai Pelajar Latihan dan Asrama', 'Dobi + Buku Outing', 'RM 451.00', 'RM 81.00', 'RM 532.00'),
 (21, 'mekanikal & pengeluaran', 'diploma teknologi komputer', 'danial hasim', '161235', '2/24', 'Semester 1', '-', 'Dobi + Buku Outing', '-', 'RM 81.00', 'RM 81.00');
 
+
 --
 -- Indexes for dumped tables
 --

@@ -23,7 +23,7 @@
       }
 
       .sidebar:hover {
-        width: 300px; /* Expand on hover */
+        width: 400px; /* Expand on hover */
       }
 
       .menu-content {
@@ -60,7 +60,11 @@
       }
 
       .menu-items .item a:hover {
-        background-color: #333;
+        background-color:rgb(255, 24, 24);
+        color: #fff;
+      }
+
+      .menu-items .item a:hover {
         color: #fff;
       }
 
