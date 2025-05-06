@@ -1,4 +1,4 @@
-<!-- mysql -u root deploy_resit < C:/Users/Administrator/development/e-resit/database\ file/deploy_resit.sql  -->
+<!-- Get-Content "C:\Users\Administrator\development\e-resit\database\deploy_resit.sql" | mysql -u root deploy_resit  -->
 <?php
 $conn = mysqli_connect('localhost', 'root', '', 'deploy_resit');
 if (!$conn) {
