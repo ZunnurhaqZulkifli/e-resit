@@ -1,0 +1,108 @@
+html, body {
+    min-height: 100%;
+    }
+    body, div, form, input, select, p { 
+    padding: 0;
+    margin: 0;
+    outline: none;
+    font-family: Roboto, Arial, sans-serif;
+    font-size: 14px;
+    color: #000000;
+    }
+  
+
+    /* KAUNTER SATU */
+    h1 {
+        margin: 0;
+        font-weight: 400;
+        color: #000000; 
+      }
+     
+    /* PENGAJAR */  
+    h3 {
+    margin: 7px 0;
+    color: #174dff;
+    }
+
+     /* background kotak bukan gambar belakang */ 
+    .main-block {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: #ffffff7a;
+        margin-top: 70px; /* Sesuaikan margin-top ini sesuai kebutuhan Anda */
+    }
+    form {
+    width: 100%;
+    padding: 20px;
+    }
+
+     /* garisan dekat pengajar dan maklumat*/ 
+    fieldset {
+    border: none;
+    border-top: 1px solid #000000;
+    }
+
+
+    .account-details, .personal-details {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    }
+    .account-details >div, .personal-details >div >div {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+    }
+    .account-details >div, .personal-details >div, input, label {
+    width: 100%;
+    }
+
+     /* nama sebelah box isi borang */ 
+    label {
+      padding: 0 5px;
+      text-align: right;
+      vertical-align: middle;
+      color: #000000; /* Replace #FF0000 with your desired text color */
+  }
+  
+  /* color tulisan dalam bos isi borang */ 
+  input {
+    padding: 5px;
+    vertical-align: middle;
+    color: #000000; /* Replace #FF0000 with your desired text color */
+}
+
+/* color choose file */ 
+input[type="file"] {
+  color: #000000; /* Replace #FF0000 with your desired text color */
+}
+
+/* button klik*/ 
+    button {
+    width: 100%;
+    padding: 10px 0;
+    margin: 10px auto;
+    border-radius: 5px; 
+    border: none;
+    background: #0044ff; 
+    font-size: 14px;
+    font-weight: 600;
+    color: #fff;
+    }
+
+    @media (min-width: 568px) {
+    .account-details >div, .personal-details >div {
+    width: 50%;
+    }
+    label {
+    width: 40%;
+    }
+    input {
+    width: 60%;
+    }
+    select, .children, .gender, .bdate-block {
+    width: calc(60% + 16px);
+    }
+    }
+
