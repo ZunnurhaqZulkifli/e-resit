@@ -1,133 +1,121 @@
--- phpMyAdmin SQL Dump
--- version 5.2.1
--- https://www.phpmyadmin.net/
---
--- Host: localhost:3306
--- Generation Time: Nov 13, 2023 at 03:34 PM
--- Server version: 8.0.30
--- PHP Version: 8.1.10
+CREATE DATABASE IF NOT EXISTS `deploy_resit`
+DEFAULT CHARSET utf8mb4
+DEFAULT COLLATE utf8mb4_0900_ai_ci;
+SET default_storage_engine = INNODB;
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
-SET time_zone = "+00:00";
+SET time_zone = '+08:00';
 
+SET FOREIGN_KEY_CHECKS = 0;
 
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8mb4 */;
+DROP TABLE IF EXISTS `users`;
+DROP TABLE IF EXISTS `user_profiles`;
+DROP TABLE IF EXISTS `sessions`;
+DROP TABLE IF EXISTS `items`;
+DROP TABLE IF EXISTS `receipts`;
+DROP TABLE IF EXISTS `receipt_items`;
 
---
--- Database: `deploy_resit`
---
+SET FOREIGN_KEY_CHECKS = 1;
 
--- --------------------------------------------------------
-
---
--- Table structure for table `ajk`
---
-
-CREATE TABLE `ajk` (
-  `id` int NOT NULL,
+CREATE TABLE `users` (
+  `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
   `name` varchar(255) NOT NULL,
-  `ajk` varchar(255) NOT NULL,
-  `password` varchar(255) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  `email` varchar(255) NOT NULL,
+  `password` varchar(255) NOT NULL,
+  `role` varchar(255) NOT NULL,
+  PRIMARY KEY(`id`)
+) ENGINE=InnoDB;
 
---
--- Dumping data for table `ajk`
---
+CREATE TABLE `user_profiles` (
+  `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
+  `user_id` INT UNSIGNED NOT NULL,
+  `id_number` varchar(255) NULL,
+  `dob` DATE NULL,
+  `job_title` varchar(255) NULL,
+  `child_count` varchar(255) NULL,
+  `address` TEXT(255) NULL,
+  `phone` varchar(255) NULL,
+  PRIMARY KEY(`id`),
+  INDEX `USER_ID`(`user_id` ASC),
+  CONSTRAINT `up_user_id` FOREIGN KEY(`user_id`) REFERENCES `users`(`id`) ON DELETE CASCADE
+) ENGINE=InnoDB;
 
-INSERT INTO `ajk` (`id`, `name`, `ajk`, `password`) VALUES
-(1, 'faris', '112233', '123'),
-(2, 'faris', 'ajk', '123'),
-(3, 'faris', 'ajk', '123'),
-(4, 'faris', 'ajk', '123'),
-(5, 'faris', 'ajk', '123'),
-(6, 'faris', 'ajk', '123'),
-(7, 'faris', 'ajk', '123'),
-(8, 'faris', 'ajk', '123'),
-(9, 'faris', 'ajk', '123'),
-(10, 'faris', 'ajk', '123'),
-(11, 'faris', 'ajk', '123');
+CREATE TABLE `sessions` (
+  `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
+  `user_id` INT UNSIGNED NOT NULL,
+  `ip_address` VARCHAR(255),
+  PRIMARY KEY(`id`),
+  INDEX `USER_ID`(`user_id` ASC),
+  CONSTRAINT `ss_user_id` FOREIGN KEY(`user_id`) REFERENCES `users`(`id`) ON DELETE CASCADE
+) ENGINE=InnoDB;
 
--- --------------------------------------------------------
-
---
--- Table structure for table `resit`
---
-
-CREATE TABLE `resit` (
-  `id` int NOT NULL,
-  `jabatan` varchar(255) NOT NULL,
-  `bahagian` varchar(255) NOT NULL,
+CREATE TABLE `items` (
+  `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
+  `category` varchar(255) NOT NULL,
   `name` varchar(255) NOT NULL,
-  `ndp` varchar(255) NOT NULL,
-  `sesi` varchar(255) NOT NULL,
-  `semester` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
-  `ksk1` varchar(255) NOT NULL,
-  `ksk2` varchar(255) NOT NULL,
-  `total1` varchar(255) NOT NULL,
-  `total2` varchar(255) NOT NULL,
-  `total` varchar(255) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  `amount` decimal(10,2) NOT NULL,
+  `status` varchar(255) NOT NULL DEFAULT 'active',
+  PRIMARY KEY(`id`)
+) ENGINE=InnoDB;
 
---
--- Dumping data for table `resit`
---
+CREATE TABLE `receipts` (
+  `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
+  `user_id` INT UNSIGNED NOT NULL,
+  `user_type` varchar(255) NOT NULL,
+  `reference_number` varchar(255) NOT NULL,
+  `type` varchar(255) NOT NULL,
+  `department` varchar(255) NOT NULL,
+  `section` varchar(255) NOT NULL,
+  `session` varchar(255) NOT NULL,
+  `semester` varchar(255) NULL,
+  `total_amount` decimal(10,2) NOT NULL,
+  `created_at` DATETIME NOT NULL,
+  `paid_at` DATETIME NULL,
+  PRIMARY KEY(`id`),
+  INDEX `USER_ID`(`user_id` ASC),
+  CONSTRAINT `rx_user_id` FOREIGN KEY(`user_id`) REFERENCES `users`(`id`) ON DELETE CASCADE
+) ENGINE=InnoDB;
 
-INSERT INTO `resit` (`id`, `jabatan`, `bahagian`, `name`, `ndp`, `sesi`, `semester`, `ksk1`, `ksk2`, `total1`, `total2`, `total`) VALUES
-(6, 'elektrik & elektrikal', 'diploma teknologi automotif', 'akmal', '1612344', '2/23', 'Semester 1', 'Senarai Pelajar Latihan dan Asrama', 'Dobi + Buku Outing', 'RM 451.00', 'RM 81.00', 'RM 532.00'),
-(7, 'mekanikal & pengeluaran', 'diploma teknologi automotif', 'saiful amin', '1649156', '2/24', 'Semester 1', 'Senarai Pelajar Latihan dan Asrama', '-', 'RM 451.00', '-', 'RM 451.00'),
-(8, 'mekanikal & pengeluaran', 'diploma teknologi automotif', 'azam manan', '165465', '2/24', 'Semester 1', '-', 'Dobi + Buku Outing', '-', 'RM 81.00', 'RM 81.00'),
-(9, 'elektrik & elektrikal', 'diploma teknologi mekatronik', 'hazimi bin safwan', '16565', '2/23', 'Semester 2', '-', 'Dobi + Buku Outing', '-', 'RM 81.00', 'RM 81.00'),
-(10, 'elektrik & elektrikal', 'diploma teknologi automotif', 'hazim bin jasan', '16765', '2/23', 'Semester 2', 'Senarai Pelajar Latihan dan Asrama', '-', 'RM 451.00', '-', 'RM 451.00'),
-(11, 'mekanikal & pengeluaran', 'diploma teknologi automotif', 'sadan bin danan', '164896', '2/24', 'Semester 1', 'Senarai Pelajar Latihan dan Asrama', 'Dobi + Buku Outing', 'RM 451.00', 'RM 81.00', 'RM 532.00'),
-(12, 'mekanikal & pengeluaran', 'diploma teknologi telekomunikasi', 'fariq bin hasim', '164966', '2/25', 'Semester 1', 'Senarai Pelajar Latihan dan Asrama', 'Dobi + Buku Outing', 'RM 451.00', 'RM 81.00', 'RM 532.00'),
-(13, 'mekanikal & pengeluaran', 'diploma teknologi telekomunikasi', 'fariq bin farid', '167857', '2/25', 'Semester 1', 'Senarai Pelajar Latihan dan Asrama', 'Dobi + Buku Outing', 'RM 451.00', 'RM 81.00', 'RM 532.00'),
-(14, 'elektrik & elektrikal', 'diploma teknologi telekomunikasi', 'hafis bin sadim', '167956', '2/25', 'Semester 1', 'Senarai Pelajar Latihan dan Asrama', 'Dobi + Buku Outing', 'RM 451.00', 'RM 81.00', 'RM 532.00'),
-(15, 'elektrik & elektrikal', 'diploma teknologi komputer', 'hasan bin munas', '162329', '2/24', 'Semester 2', 'Senarai Pelajar Latihan dan Asrama', '-', 'RM 451.00', '-', 'RM 451.00'),
-(16, 'mekanikal & pengeluaran', 'diploma teknologi automotif', 'hamid bin kamal', '145826', '2/24', 'Semester 2', 'Senarai Pelajar Latihan dan Asrama', '-', 'RM 451.00', '-', 'RM 451.00'),
-(17, 'mekanikal & pengeluaran', 'diploma teknologi automotif', 'ika binti hassan', '1612358', '2/23', 'Semester 2', 'Senarai Pelajar Latihan dan Asrama', 'Dobi + Buku Outing', 'RM 451.00', 'RM 81.00', 'RM 532.00'),
-(18, 'mekanikal & pengeluaran', 'diploma teknologi automotif', 'hanim binti daah', '161458', '2/24', 'Semester 2', '-', 'Dobi + Buku Outing', '-', 'RM 81.00', 'RM 81.00'),
-(19, 'elektrik & elektrikal', 'diploma teknologi komputer', 'munib danial ', '16123456', '2/24', 'Semester 2', 'Senarai Pelajar Latihan dan Asrama', 'Dobi + Buku Outing', 'RM 451.00', 'RM 81.00', 'RM 532.00'),
-(20, 'elektrik & elektrikal', 'diploma teknologi komputer', 'faris ilyas', '1612389', '2/25', 'Semester 2', 'Senarai Pelajar Latihan dan Asrama', 'Dobi + Buku Outing', 'RM 451.00', 'RM 81.00', 'RM 532.00'),
-(21, 'mekanikal & pengeluaran', 'diploma teknologi komputer', 'danial hasim', '161235', '2/24', 'Semester 1', '-', 'Dobi + Buku Outing', '-', 'RM 81.00', 'RM 81.00');
+CREATE TABLE `receipt_items` (
+  `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
+  `receipt_id` int UNSIGNED NOT NULL,
+  `item_id` int UNSIGNED NOT NULL,
+  PRIMARY KEY(`id`),
+  INDEX `receipt_ID`(`receipt_id` ASC),
+  CONSTRAINT `fk_receipt_id` FOREIGN KEY(`receipt_id`) REFERENCES `receipts`(`id`) ON DELETE CASCADE,
+  INDEX `ITEM_ID`(`item_id` ASC),
+  CONSTRAINT `fx_item_id` FOREIGN KEY(`item_id`) REFERENCES `items`(`id`) ON DELETE CASCADE
+) ENGINE=InnoDB;
 
+INSERT INTO `users` (`id`, `name`, `email`, `password`, `role`) VALUES
+(1, 'admin', 'a', 'a', 'admin'),
+(2, 'juno', 'juno@example.test', 'a', 'student');
 
---
--- Indexes for dumped tables
---
+INSERT INTO `items` (`id`, `category`, `name`, `amount`, `status`) VALUES
+(1, 'fee', 'Bulanan', '5.00', 'active'),
+(2, 'fee', 'Tahunan', '20.00', 'active');
 
---
--- Indexes for table `ajk`
---
-ALTER TABLE `ajk`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `resit`
---
-ALTER TABLE `resit`
-  ADD PRIMARY KEY (`id`);
-
---
--- AUTO_INCREMENT for dumped tables
---
-
---
--- AUTO_INCREMENT for table `ajk`
---
-ALTER TABLE `ajk`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
-
---
--- AUTO_INCREMENT for table `resit`
---
-ALTER TABLE `resit`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 COMMIT;
 
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+DELIMITER //
+
+CREATE TRIGGER before_receipt_insert
+BEFORE INSERT ON `receipts`
+FOR EACH ROW
+BEGIN
+    
+    IF NEW.reference_number IS NULL OR NEW.reference_number = '' THEN
+        
+        SET @daily_count = (SELECT COUNT(*) + 1 FROM `receipts` 
+                           WHERE DATE(created_at) = CURDATE());
+        SET NEW.reference_number = CONCAT('REC-', DATE_FORMAT(NOW(), '%Y%m%d'), '-', 
+                                         LPAD(@daily_count, 5, '0'));
+    END IF;
+    
+    IF NEW.created_at IS NULL THEN
+        SET NEW.created_at = NOW();
+    END IF;
+END//
+
+DELIMITER ;

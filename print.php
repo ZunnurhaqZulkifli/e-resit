@@ -33,7 +33,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             if (mysqli_stmt_affected_rows($stmt) > 0) {
                 $message = "Receipt successfully saved.";
-                header('Location: paparresit.php');
+                header('Location: student_lists.php');
                 exit();
             } else {
                 $message = "Receipt could not be saved.";

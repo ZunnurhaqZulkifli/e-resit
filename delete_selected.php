@@ -11,7 +11,7 @@ if (isset($_POST['selected_ndp'])) {
     }
 
     // Redirect ke halaman asal selepas delete
-    header("Location: paparresit.php");
+    header("Location: student_lists.php");
     exit();
 }
 ?>

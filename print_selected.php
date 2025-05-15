@@ -1,18 +1,15 @@
 <?php
-if (isset($_POST['selected_ndp'])) {
-    $selected_ndp = $_POST['selected_ndp'];
 
-    // Jika hanya satu pelajar dipilih
-    if (count($selected_ndp) == 1) {
-        $ndp = $selected_ndp[0];
+print_r($_POST['ids']);
 
-        // Redirect ke halaman mencetak.php dengan NDP yang dipilih
-        header("Location: http://e-resit.test/mencetak.php?ndp=" . urlencode($ndp));
-        exit(); // pastikan skrip dihentikan selepas pengalihan
-    } else {
-        // Jika lebih dari satu pelajar dipilih, berikan amaran kepada pengguna
-        echo "Sila pilih hanya satu pelajar untuk mencetak.";
-    }
+$id = $_POST['ids'];
+
+if ($id) {
+
+    // Redirect ke halaman mencetak.php dengan NDP yang dipilih
+    header("Location: http://e-resit.test/mencetak.php?id=" . urlencode($id));
+    exit(); // pastikan skrip dihentikan selepas pengalihan
+
 } else {
     echo "Tiada pelajar dipilih.";
 }

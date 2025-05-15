@@ -62,7 +62,7 @@
         }
 
         .tbl-content {
-            height: 400px;
+            height: 1000px;
             overflow-y: auto;
             margin-bottom: 20px;
         }
@@ -85,7 +85,7 @@
         }
 
         .tbl-content table tbody tr:hover {
-            background-color: #333; /* Slightly lighter on hover */
+            background-color:rgb(176, 45, 131);
         }
 
         .tbl-content table td {
@@ -167,50 +167,79 @@
                 <table cellpadding="0" cellspacing="0" border="0">
                     <thead>
                         <tr>
-                            <th>Pilih</th>
-                            <th>NAMA</th>
-                            <th>SESI</th>
-                            <th>SEMESTER</th>
-                            <th>JABATAN</th>
-                            <th>BAHAGIAN</th>
-                            <th>SENARAI KEPERLUAN</th>
-                            <th>JUMLAH</th>
+                            <th style="padding-left: 20px;">
+                                No
+                            </th>
+                            <th style="padding-left: 80px;">
+                                Nama
+                            </th>
+                            <th style="padding-left: 90px;">
+                                Sesi
+                            </th>
+                            <th style="padding-left: 50px;">
+                                Semester
+                            </th>
+                            <th style="padding-left: 120px;">
+                                Jabatan
+                            </th>
+                            <th style="padding-left: 230px;">
+                                Bahagian
+                            </th>
+                            <th style="padding-left: 320px;">
+                                Senarai Keperluan
+                            </th>
+                            <th style="padding-left: 230px;">
+                                Jumlah
+                            </th>
+                            <th style="padding-left: 70px;">
+                                Action
+                            </th>
                         </tr>
                     </thead>
                 </table>
             </div>
 
-            <form action="print_selected.php" method="POST">
-                <div class="tbl-content">
-                    <table cellpadding="0" cellspacing="0" border="0">
-                        <tbody>
-                            <?php
-                            @include 'config.php';
-                            $query = "SELECT * FROM `resit`";
-                            $result = mysqli_query($conn, $query);
+            <div class="tbl-content">
+                <table cellpadding="0" cellspacing="0" border="0">
+                    <tbody>
+                        <?php
+                        @include 'config.php';
+                        $query = "SELECT * FROM `resit`";
+                        $result = mysqli_query($conn, $query);
+                        $key = 0;
 
-                            if ($result && mysqli_num_rows($result) > 0) {
-                                while ($row = mysqli_fetch_assoc($result)) {
-                                    ?>
-                                    <tr>
-                                        <td><input type="checkbox" name="selected_ndp[]" value="<?php echo htmlspecialchars($row['ndp']); ?>"></td>
-                                        <td><?php echo htmlspecialchars($row['name']); ?></td>
-                                        <td><?php echo htmlspecialchars($row['sesi']); ?></td>
-                                        <td><?php echo htmlspecialchars($row['semester']); ?></td>
-                                        <td><?php echo htmlspecialchars($row['jabatan']); ?></td>
-                                        <td><?php echo htmlspecialchars($row['bahagian']); ?></td>
-                                        <td><?php echo htmlspecialchars($row['ksk1']); ?>, <?php echo htmlspecialchars($row['ksk2']); ?></td>
-                                        <td><?php echo htmlspecialchars($row['total']); ?></td>
-                                    </tr>
-                                    <?php
-                                }
+                        if ($result && mysqli_num_rows($result) > 0) {
+                            while ($row = mysqli_fetch_assoc($result)) {
+                                $key++;
+                                ?>
+                                <tr>
+                                    <td>
+                                        <?php echo $key; ?>
+                                    </td>
+                                    <td><?php echo htmlspecialchars($row['name']); ?></td>
+                                    <td><?php echo htmlspecialchars($row['sesi']); ?></td>
+                                    <td><?php echo htmlspecialchars($row['semester']); ?></td>
+                                    <td><?php echo htmlspecialchars($row['jabatan']); ?></td>
+                                    <td><?php echo htmlspecialchars($row['bahagian']); ?></td>
+                                    <td><?php echo htmlspecialchars($row['ksk1']); ?>, <?php echo htmlspecialchars($row['ksk2']); ?></td>
+                                    <td><?php echo htmlspecialchars($row['total']); ?></td>
+                                    <td>
+                                        <form action="<?php echo htmlspecialchars("mencetak.php?id=" . $row['id']); ?>" method="POST">
+                                            <button type="submit" class="print-button" name="print">
+                                                Cetak
+                                            </button>
+                                        </td>
+                                    </form>
+                                </tr>
+                                <?php
                             }
-                            ?>
-                        </tbody>
-                    </table>
-                </div>
-                <button type="submit" class="print-button">Print Selected</button>
-            </form>
+                        } else {
+                            echo "<tr><td colspan='8'>Tiada Rekod Ditemui</td></tr>";
+                        }
+                        ?>
+                    </tbody>
+                </table>
+            </div>
         </section>
     </main>
 
