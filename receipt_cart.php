@@ -104,7 +104,7 @@ if($_SERVER["REQUEST_METHOD"] === "POST" && $request_type == "add_item") {
                             <?php 
 
                             foreach($items as $item) {
-                                echo "<option value='{$item->id}'>{$item->name} | RM " . number_format($item->amount, 2). "</option>";
+                                echo "<option style=color:black value='{$item->id}'>{$item->name} | RM " . number_format($item->amount, 2). "</option>";
                             }
                         
                             ?>
