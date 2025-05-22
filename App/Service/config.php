@@ -1,6 +1,8 @@
 <?php
 
 namespace App\Service;
+// <!-- Get-Content "C:\Users\Administrator\development\e-resit\database\deploy_resit.sql" | mysql -u root deploy_resit  -->
+// mysql -u root deploy_resit < /Users/zunnurhaqzulkifli/Development/Laravel/not_work/e-resit/database/deploy_resit.sql
 
 class Config
 {
