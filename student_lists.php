@@ -17,7 +17,21 @@
     <?php include 'sidebar.php'; ?>
         <main class="main">
             <h1>Senarai Resit Anda</h1>
-            <div class="table-container">
+            <?php
+                if(User::find($user->id)->receipts() == null) {
+                    echo "<p>Tiada resit untuk dipaparkan.</p>";
+                }
+            ?>
+
+            <div 
+                class="table-container"
+                style="
+                    <?php
+                        if(User::find($user->id)->receipts() == null) {
+                            echo "display: none;";
+                        }
+                    ?>"
+                >
                 <table>
                     <thead>
                         <tr>

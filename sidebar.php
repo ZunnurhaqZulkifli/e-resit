@@ -54,7 +54,8 @@
           ">
             <a href="student_lists.php"><i class="fa-solid fa-users-line"></i>Senarai Resit Pelajar</a>
           </li>
-          <li class="item" style="
+          
+          <!-- <li class="item" style="
             <?php 
               if ($user->role === 'admin' || $user->role === 'member') { 
                 if ($page === 'member_receipt.php') { echo $style; }
@@ -75,7 +76,7 @@
             ?>
           ">
             <a href="student_lists.php"><i class="fa-solid fa-users"></i>Senarai Resit Ahli</a>
-          </li>
+          </li> -->
           <li class="item">
             <a href="logout.php"><i class="fa-solid fa-arrow-right-from-bracket"></i>Logout</a>
           </li>
