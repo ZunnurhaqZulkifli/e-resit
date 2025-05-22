@@ -25,10 +25,12 @@ require __DIR__ . '/vendor/autoload.php';
     <!-- Main Content -->
     <main class="main">
         <div class="container">
-            <div class="text">Daftar</div>
+            <div class="text">Daftar (1 / 2)</div>
             <p>
                 <i class="fas fa-user-plus"></i> Cipta Akaun Baru
             </p>
+
+            <br>
 
             <form action="create_user.php" method="POST">
 
@@ -36,13 +38,20 @@ require __DIR__ . '/vendor/autoload.php';
                     <label for="name">Nama</label>
                     <input type="text" id="name" name="name" required />
                 </div>
+
                 <div class="data">
                     <label for="email">Emel</label>
                     <input type="text" id="email" name="email" required />
                 </div>
+
                 <div class="data">
                     <label for="password">Password</label>
-                    <input type="password" id="password" name="password" required />
+                    <div class="password-wrapper">
+                        <input type="password" id="password" name="password" required />
+                        <button type="button" class="toggle-password" onclick="togglePassword()">
+                        👁️
+                        </button>
+                    </div>
                 </div>
 
                 <div class="data">
@@ -54,8 +63,12 @@ require __DIR__ . '/vendor/autoload.php';
                         <option value="member">
                             Ahli
                         </option>
+                        <option value="lecturer">
+                            Pensyarah
+                        </option>
                     </select>
                 </div>
+
                 <br>
                 <button type="submit" class="btn">
                     <i class="fas fa-user-plus"></i> Cipta Akaun
@@ -64,7 +77,7 @@ require __DIR__ . '/vendor/autoload.php';
         </div>
     </main>
 
-    <script src="js/index.js"></script>
+    <script src="app/js/index.js"></script>
     <?php include 'footer.php'; ?>
 </body>
 </html>

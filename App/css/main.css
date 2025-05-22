@@ -9,7 +9,7 @@
 body{
   height: 100vh;
   width: 100%;
-  background: linear-gradient(115deg, #56d8e4 10%, #9f01ea 90%);
+  background: linear-gradient(115deg, #005e66 10%, #9f01ea 90%);
 }
 
 
@@ -68,6 +68,26 @@ body{
         width: 100%;
         padding: 20px;
     }
+}
+
+.password-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.password-wrapper input {
+  padding-right: 2.5rem; /* space for the button */
+}
+
+.toggle-password {
+  position: absolute;
+  right: 0.5rem;
+  top: 0.6rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 1rem;
 }
 
 .container {
@@ -207,29 +227,35 @@ body{
 .table-responsive {
     overflow-x: auto;
 }
+
 table {
-    width: 100%;
+    width: 1800px;
     border-collapse: collapse;
     margin-bottom: 1rem;
     background-color: #fff;
+    border-color: #000;
+    border-width: 1px;
 }
 th, td {
     padding: 0.75rem;
     text-align: left;
-    border: 0.2px solid #000000;
+    border-color: 0.2px solid #0000;
 }
 th {
-    background-color: #2f2c2c;
+    background-color: #ffffff;
 }
 tbody tr:nth-child(even) {
-    background-color: #2f2c2c;
+    background-color: #ffffff;
+    border-color: #000;
 }
 tbody tr:nth-child(odd) {
-    background-color: #2f2c2c;
+    background-color: #ffffff;
+    border-color: #000;
 }
 tfoot td {
-    background-color: #2f2c2c;
+    background-color: #ffffff;
     font-weight: bold;
+    border-color: #000;
 }
 
 /* Button */

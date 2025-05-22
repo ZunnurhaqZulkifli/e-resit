@@ -1,3 +1,24 @@
+<?php
+    require __DIR__ . '/vendor/autoload.php';
+
+    use App\Models\Lecturer;
+    use App\Models\User;
+    use App\Service\Auth;
+    new Auth();
+    
+    $user = Auth::user();
+    $lecturers = Lecturer::all();
+    $csrfToken = bin2hex(random_bytes(32));
+    $_SESSION['csrf_token'] = $csrfToken;
+
+    $unpaid = User::find($user->id)->unpaidReceipt();
+
+    if(!empty($unpaid)) {
+        header("Location: receipt_cart.php?id={$unpaid->id}");
+    }
+    
+?>
+
 <!DOCTYPE html>
 <html lang="en-us">
 <head>
@@ -10,29 +31,62 @@
 <body>
     <?php include('sidebar.php'); ?>
     <main class="main">
+        <div>
+            <div class="text">Daftar Resit Pelajar ( 1 / 2 )</div>
+        </div>
         <div class="main-block">
-            <form action="./printResit.php" method="POST">
+            <form action="./save_receipt_1.php" method="POST">
+                <input type="hidden" name="csrf_token" value="<?= $csrfToken ?>">
                 <h1>PENDAFTARAN RESIT PELAJAR</h1>
 
                 <!-- Pengajar Details -->
                 <fieldset>
-                    <legend><h3>PENGAJAR</h3></legend>
+                    <legend><h3>Maklumat Pengajar</h3></legend>
                     <div>
-                        <label>JABATAN*</label>
-                        <select name="jabatan">
-                            <option value=""></option>
-                            <option value="mekanikal & pengeluaran">Mekanikal & Pengeluaran</option>
-                            <option value="elektrik & elektrikal">Elektrik & Elektrikal</option>
+                        <label>Pengajar</label>
+                        <select name="lecturer_id" id="lecturer" required>
+                            <option value="<?php echo null; ?>">Sila Pilih</option>
+
+                            <?php if (isset($_GET['lecturer_id'])): ?>
+                                <option value="<?= $_GET['lecturer_id'] ?>" selected>
+                                    <?= Lecturer::find($_GET['lecturer_id'])->name ?>
+                                </option>
+                            <?php else: ?>
+                                <?php foreach ($lecturers as $lecturer): ?>
+                                        <option value="<?= $lecturer->id ?>">
+                                            <?= $lecturer->name ?>
+                                        </option>
+                                <?php endforeach; ?>
+                            <?php endif; ?>
                         </select>
                     </div>
 
                     <div>
-                        <label>BAHAGIAN*</label>
-                        <select name="bahagian">
-                            <option value=""></option>
-                            <option value="diploma teknologi pembuatan">Diploma Teknologi Pembuatan</option>
-                            <option value="diploma teknologi automotif">Diploma Teknologi Automotif</option>
-                        </select>
+                        <label>Jabatan</label>
+                        <input type="text" readonly name="department" id="department" value="<?php
+                                if (isset($_GET['lecturer_id'])) {
+                                    $lecturer = User::find($_GET['lecturer_id']);
+
+                                    print_r($lecturer->profile($_GET['lecturer_id'])->department);
+                                } else {
+                                    echo "Sila pilih pengajar";
+                                }
+                            ?>
+                        ">
+                    </div>
+
+                    <div>
+                        <label>Bahagian</label>
+                        <input type="text" readonly name="section" id="section" value="<?php
+                                if (isset($_GET['lecturer_id'])) {
+                                    $lecturer = User::find($_GET['lecturer_id']);
+
+                                    print_r($lecturer->profile($_GET['lecturer_id'])->section);
+                                } else {
+                                    echo "Sila pilih pengajar";
+                                }
+                            ?>
+                        ">
                     </div>
                 </fieldset>
 
@@ -40,114 +94,62 @@
                 <fieldset>
                     <legend><h3>MAKLUMAT PELAJAR</h3></legend>
                     <div>
-                        <label>NAMA*</label>
-                        <input type="text" name="name" required>
+                        <label>Nama</label>
+                        <input id="name" type="text" name="name" readonly>
                     </div>
                     <div>
-                        <label>EMAIL*</label>
-                        <input type="email" name="email" required>
+                        <label>Emel</label>
+                        <input id="email" type="email" name="email" readonly>
                     </div>
                     <div>
-                        <label>NO.NDP*</label>
-                        <input type="text" name="ndp" required>
+                        <label>No. Kad Pengenalan</label>
+                        <input id="id_number" type="text" name="id_number" readonly>
                     </div>
+
                     <div>
-                        <label>SESI*</label>
-                        <select name="sesi">
-                            <option value=""></option>
-                            <option value="2/23">1/24</option>
-                            <option value="2/24">2/24</option>
-                            <option value="2/24">1/25</option>
-                            <option value="2/24">2/25</option>
-                            <option value="2/24">1/24</option>
-                            <option value="2/24">2/24</option>
-                            <option value="2/24">1/24</option>
-                        </select>
+                        <label>Semester</label>
+                        <input id="semester" type="text" name="semester" readonly>
                     </div>
+
                     <div>
-                        <label>SEMESTER*</label>
-                        <select name="semester">
-                            <option value=""></option>
-                            <option value="Semester 1">Sem 1</option>
-                            <option value="Semester 1">Sem 2</option>
-                            <option value="Semester 1">Sem 3</option>
-                            <option value="Semester 1">Sem 4</option>
-                            <option value="Semester 1">Sem 5</option>
-                        </select>
+                        <label>Sesi</label>
+                        <input id="session" type="text" name="session" readonly>
                     </div>
+
                 </fieldset>
 
-                <!-- Resit Table -->
-                <fieldset>
-                    <legend><h3>RESIT</h3></legend>
-                    <div class="table-responsive">
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th>Bil</th>
-                                    <th>Senarai Keperluan</th>
-                                    <th>Harga (RM)</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>1.</td>
-                                    <td>
-                                        <select name="ksk1">
-                                            <option value="Senarai Pelajar Latihan dan Asrama">Senarai Pelajar Latihan & Asrama</option>
-                                            <option value="-">-</option>
-                                        </select>
-                                    </td>
-                                    <td>
-                                        <select name="total1">
-                                            <option value="RM 451.00">RM 451.00</option>
-                                            <option value="-">-</option>
-                                        </select>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>2.</td>
-                                    <td>
-                                        <select name="ksk2">
-                                            <option value="Dobi + Buku Outing">Dobi + Buku Outing</option>
-                                            <option value="-">-</option>
-                                        </select>
-                                    </td>
-                                    <td>
-                                        <select name="total2">
-                                            <option value="RM 81.00">RM 81.00</option>
-                                            <option value="-">-</option>
-                                        </select>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td></td>
-                                    <td>JUMLAH KESELURUHAN</td>
-                                    <td>
-                                        <select name="total">
-                                        <option value="RM 532.00">RM 532.00</option>
-                                    <option value="RM 451.00">RM 451.00</option>
-                                    <option value="RM 81.00">RM 81.00</option>
-                                            <option value="-">-</option>
-                                        </select>
-                                    </td>
-                                </tr>
-                            </tbody>
-                            <tfoot>
-                                <tr>
-                                    <td colspan="3" class="text-left">
-                                        <button type="submit" class="new-button-link">Submit</button>
-                                    </td>
-                                </tr>
-                            </tfoot>
-                        </table>
-                    </div>
-                </fieldset>
+                <button type="submit" class="new-button-link">
+                    <i class="fas fa-print"></i> Simpan
+                </button>
             </form>
             <?php if (!empty($message)) { echo "<p>$message</p>"; } ?>
         </div>
     </main>
     <script>
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log("Prefilling form with user data...");
+            
+            document.getElementById('name').value = "<?php echo $user->name; ?>";
+            document.getElementById('email').value = "<?php echo $user->email; ?>";
+            document.getElementById('id_number').value = "<?php echo $user?->profile()?->id_number; ?>";
+            document.getElementById('semester').value = "<?php echo $user?->profile()?->semester; ?>";
+            document.getElementById('session').value = "<?php echo $user?->profile()?->session; ?>";
+
+            const lecturerSelect = document.getElementById('lecturer');
+
+            lecturerSelect.addEventListener('change', function() {
+                console.log("Lecturer selected: ", this.value);
+
+                if(this.value) {                    
+                    window.location.href = `./student_reciept.php?lecturer_id=${this.value}`;
+                } else {
+                    window.location.href = `./student_reciept.php`;
+                }
+            });
+            
+        });
+
         function printReceipt() {
             window.print();
         }

@@ -16,9 +16,15 @@
                     <label>Emel</label>
                     <input type="text" name="email" required>
                 </div>
+                
                 <div class="data">
-                    <label>Kata Laluan</label>
-                    <input type="text" name="password" required>
+                    <label for="password">Password</label>
+                    <div class="password-wrapper">
+                        <input type="password" id="password" name="password" required />
+                        <button type="button" class="toggle-password" onclick="togglePassword()">
+                        👁️
+                        </button>
+                    </div>
                 </div>
                 <button class="btn" type="submit" name="submit">Log Masuk</button>
             </form>
@@ -37,6 +43,7 @@
         </div>
     </main>
 
+    <script src="app/js/index.js"></script>
     <?php include 'footer.php'; ?>
 </body>
 </html>

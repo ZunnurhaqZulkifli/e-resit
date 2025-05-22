@@ -1,3 +1,13 @@
+<?php
+
+  require __DIR__ . '/vendor/autoload.php';
+  use App\Service\Auth;
+  $user = Auth::user();
+  $page = basename($_SERVER['SCRIPT_FILENAME']);
+  $style = 'background-color: rgba(255, 0, 200, 0.77); color: #fff; border-radius: 50px;';
+  
+?>
+
 <!DOCTYPE html> 
 <html lang="en">
   <head>
@@ -14,29 +24,57 @@
         <div class="menu-title">E-Kewangan KSK</div>
         <ul class="menu-items">
           <li class="item" style="
-            <?php if (basename($_SERVER['SCRIPT_FILENAME']) === 'main.php') { echo 'background-color: rgba(255, 0, 200, 0.77); color: #fff; border-radius: 50px;'; } ?>
+            <?php if ($page === 'main.php') { echo $style; } ?>
           ">
             <a href="main.php"><i class="fa-solid fa-house"></i>Home</a>
           </li>
           <li class="item" style="
-            <?php if (basename($_SERVER['SCRIPT_FILENAME']) === 'student_reciept.php') { echo 'background-color: rgba(255, 0, 200, 0.77); color: #fff; border-radius: 50px;'; } ?>
+            <?php 
+              if ($user->role === 'admin' || $user->role === 'student') { 
+                if ($page === 'student_reciept.php') { echo $style; }
+                if ($page === 'receipt_cart.php') { echo $style; }
+                if ($page === 'payment_page.php') { echo $style; }
+                if ($page === 'print_receipt.php') { echo $style; }
+              } else {
+                echo 'display: none;';
+              } 
+            ?>
+            
           ">
-            <a href="student_reciept.php"><i class="fa-solid fa-receipt"></i>Resit Pelajar</a>
+            <a href="student_reciept.php"><i class="fa-solid fa-receipt"></i>Resit Pelajar / Bayar</a>
           </li>
           <li class="item" style="
-            <?php if (basename($_SERVER['SCRIPT_FILENAME']) === 'member_receipt.php') { echo 'background-color: rgba(255, 0, 200, 0.77); color: #fff; border-radius: 50px;'; } ?>
+            <?php 
+              if ($user->role === 'admin' || $user->role === 'student' || $user->role === 'lecturer') { 
+                if ($page === 'student_lists.php') { echo $style; }
+              } else {
+                echo 'display: none;';
+              } 
+            ?>
+          ">
+            <a href="student_lists.php"><i class="fa-solid fa-users-line"></i>Senarai Resit Pelajar</a>
+          </li>
+          <li class="item" style="
+            <?php 
+              if ($user->role === 'admin' || $user->role === 'member') { 
+                if ($page === 'member_receipt.php') { echo $style; }
+              } else {
+                echo 'display: none;';
+              } 
+            ?>
           ">
             <a href="member_receipt.php"><i class="fa-solid fa-receipt"></i>Resit Ahli</a>
           </li>
           <li class="item" style="
-            <?php if (basename($_SERVER['SCRIPT_FILENAME']) === 'member-lists.php') { echo 'background-color: rgba(255, 0, 200, 0.77); color: #fff; border-radius: 50px;'; } ?>
+            <?php 
+              if ($user->role === 'admin' || $user->role === 'member' || $user->role === 'lecturer') {
+                if ($page === 'member-lists.php') { echo $style; }
+              } else {
+                echo 'display: none;';
+              } 
+            ?>
           ">
-            <a href="student_lists.php"><i class="fa-solid fa-users"></i>Senarai Ahli</a>
-          </li>
-          <li class="item" style="
-            <?php if (basename($_SERVER['SCRIPT_FILENAME']) === 'student_lists.php') { echo 'background-color: rgba(255, 0, 200, 0.77); color: #fff; border-radius: 50px;'; } ?>
-          ">
-            <a href="student_lists.php"><i class="fa-solid fa-users-line"></i>Senarai Pelajar</a>
+            <a href="student_lists.php"><i class="fa-solid fa-users"></i>Senarai Resit Ahli</a>
           </li>
           <li class="item">
             <a href="logout.php"><i class="fa-solid fa-arrow-right-from-bracket"></i>Logout</a>

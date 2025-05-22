@@ -1,3 +1,13 @@
+<?php
+
+    require __DIR__ . '/vendor/autoload.php';
+    use App\Service\Auth;
+    use App\Models\User;
+
+    $user = Auth::user();
+
+    print_r($user);
+?>
 
 <!DOCTYPE html>
 <html lang="en-us">

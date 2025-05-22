@@ -1,11 +1,8 @@
 <?php
-
     require __DIR__ . '/vendor/autoload.php';
-
+    
     use App\Service\Auth;
-
     new Auth();
-    // echo(Auth::user()->name != '' ? 'Developed By Zunnurhaq Zulkifli' : ''); // hehe
 ?>
 
 <!DOCTYPE html>
@@ -26,7 +23,7 @@
             <p>Sistem simpanan resit dan cetakan.</p>
             <a href="student_reciept.php" class="button">Mula</a>
         </main>
-    <script src="js/index.js"></script>
+    <script src="app/js/index.js"></script>
     <?php include 'footer.php'; ?>
 </body>
 </html>

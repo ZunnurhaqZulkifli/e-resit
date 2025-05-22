@@ -1,3 +1,9 @@
+<?php
+
+  $page = basename($_SERVER['SCRIPT_FILENAME']);
+  $style = 'background-color: rgba(255, 0, 200, 0.77); color: #fff; border-radius: 50px;';
+?>
+
 <!DOCTYPE html> 
 <html lang="en">
   <head>
@@ -14,17 +20,17 @@
         <div class="menu-title">E-Kewangan KSK</div>
         <ul class="menu-items">
           <li class="item" style="
-            <?php if (basename($_SERVER['SCRIPT_FILENAME']) === 'login_page.php') { echo 'background-color: rgba(255, 0, 200, 0.77); color: #fff; border-radius: 50px;'; } ?>
+            <?php if ($page === 'login_page.php' || $page === 'register_page_2.php') { echo $style; } ?>
           ">
             <a href="login_page.php"><i class="fa-solid fa-circle-user"></i>Log Masuk</a>
           </li>
           <li class="item" style="
-            <?php if (basename($_SERVER['SCRIPT_FILENAME']) === 'about_us.php') { echo 'background-color: rgba(255, 0, 200, 0.77); color: #fff; border-radius: 50px;'; } ?>
+            <?php if ($page === 'about_us.php') { echo $style; } ?>
           ">
             <a href="about_us.php"><i class="fa-solid fa-circle-info"></i>Tentang Kami</a>
           </li>
           <li class="item" style="
-            <?php if (basename($_SERVER['SCRIPT_FILENAME']) === 'register_page.php') { echo 'background-color: rgba(255, 0, 200, 0.77); color: #fff; border-radius: 50px;'; } ?>
+            <?php if ($page === 'register_page.php') { echo $style; } ?>
           ">
             <a href="register_page.php"><i class="fa-solid fa-circle-info"></i>Daftar Akaun</a>
           </li>
