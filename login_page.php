@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Login Page</title>
-    <link rel="stylesheet" href="app/css/main.css">
+    <link rel="stylesheet" href="App/Css/main.css">
 </head>
 <body>
     <?php include('sidebar_unauthed.php'); ?>
