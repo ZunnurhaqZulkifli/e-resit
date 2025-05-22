@@ -21,7 +21,7 @@ require __DIR__ . '/vendor/autoload.php';
 
     <!-- Main Content -->
     <main class="main">
-        <div class="container">
+        <div class="main-block">
             <div class="text">Daftar (2 / 2)</div>
             <p>
                 <i class="fas fa-user-plus"></i> Cipta Profil

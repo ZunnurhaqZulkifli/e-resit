@@ -9,7 +9,7 @@
     <?php include('sidebar_unauthed.php'); ?>
 
     <main class="main">
-        <div class="container">
+        <div class="main-block">
             <div class="text">Sistem Kewangan KSK</div>
             <form action="login.php" method="POST">
                 <div class="data">

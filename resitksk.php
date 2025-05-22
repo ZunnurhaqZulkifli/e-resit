@@ -114,7 +114,7 @@
 <body>
 
     <!-- Main Container -->
-    <div class="container">
+    <div class="main-block">
         <div class="form-group">
             <label for="name">Nama:</label>
             <input type="text" id="name" name="name" placeholder="Masukkan Nama" required>

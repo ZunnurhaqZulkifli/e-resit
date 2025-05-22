@@ -10,7 +10,7 @@
     <?php include 'sidebar_unauthed.php'; ?>
     
     <main class="main"> 
-        <div class="container">
+        <div class="main-block">
             <div class="text">Hubungi Kami</div>
             <div class="logo" style="text-align: center;">
                 <img src="img/adtec.png" alt="Company Logo">

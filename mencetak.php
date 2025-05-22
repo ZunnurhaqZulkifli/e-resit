@@ -72,7 +72,7 @@
     </style>
 </head>
 <body>
-    <div class="container">
+    <div class="main-block">
         <h1>KELAB SUKAN DAN KEBAJIKAN</h1>
         <h2>RESIT BAYARAN TUNAI</h2>
 

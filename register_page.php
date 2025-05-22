@@ -24,7 +24,7 @@ require __DIR__ . '/vendor/autoload.php';
 
     <!-- Main Content -->
     <main class="main">
-        <div class="container">
+        <div class="main-block">
             <div class="text">Daftar (1 / 2)</div>
             <p>
                 <i class="fas fa-user-plus"></i> Cipta Akaun Baru
@@ -60,11 +60,8 @@ require __DIR__ . '/vendor/autoload.php';
                         <option value="student">
                             Pelajar
                         </option>
-                        <option value="member">
-                            Ahli
-                        </option>
                         <option value="lecturer">
-                            Pensyarah
+                            Pengajar
                         </option>
                     </select>
                 </div>

@@ -109,7 +109,7 @@ if($_SERVER["REQUEST_METHOD"] === "POST" && $id) {
     <body>
         <?php include 'sidebar.php'; ?>
         <main class="main">
-            <div class="container">
+            <div class="main-block">
                 <h1>Maklumat Resit</h1>
 
                 <div class="justify-content-center">

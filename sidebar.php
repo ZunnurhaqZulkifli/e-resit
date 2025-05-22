@@ -41,7 +41,7 @@
             ?>
             
           ">
-            <a href="student_reciept.php"><i class="fa-solid fa-receipt"></i>Resit Pelajar / Bayar</a>
+            <a href="student_reciept.php"><i class="fa-solid fa-receipt"></i>Cipta / Bayar Resit</a>
           </li>
           <li class="item" style="
             <?php 

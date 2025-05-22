@@ -63,7 +63,7 @@ if($_SERVER["REQUEST_METHOD"] === "POST" && $request_type == "add_item") {
     <body>
         <?php include 'sidebar.php'; ?>
         <main class="main">
-            <div class="container">
+            <div class="main-block">
                 <h1>Tambah Bayaran</h1>
                 <form action="receipt_cart.php?id=<?php echo($id) ?>&request_type=add_item" method="post">
 
