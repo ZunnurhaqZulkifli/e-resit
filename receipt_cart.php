@@ -70,9 +70,9 @@ if($_SERVER["REQUEST_METHOD"] === "POST" && $request_type == "add_item") {
                     <table style="width: 100%; border-collapse: collapse; ">
                         <thead>
                             <tr>
-                                <th>Id</th>
-                                <th>Nama</th>
-                                <th>Jumlah</th>
+                                <th style="color:black">Id</th>
+                                <th style="color:black">Nama</th>
+                                <th style="color:black">Jumlah</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -82,9 +82,9 @@ if($_SERVER["REQUEST_METHOD"] === "POST" && $request_type == "add_item") {
                                 $a = $i->amount;
                                 $key = $key + 1;
                                 echo "<tr>";
-                                echo "<td>{$key}</td>";
-                                echo "<td>{$i->name}</td>";
-                                echo "<td>RM " . number_format($a, 2). "</td>";
+                                echo "<td style=color:black>{$key}</td>";
+                                echo "<td style=color:black>{$i->name}</td>";
+                                echo "<td style=color:black>RM " . number_format($a, 2). "</td>";
                                 echo "</tr>";
                             }
                             ?>
@@ -92,8 +92,8 @@ if($_SERVER["REQUEST_METHOD"] === "POST" && $request_type == "add_item") {
 
                         <tfoot>
                             <tr>
-                                <td colspan="2">Jumlah Keseluruhan</td>
-                                <td> RM <?php echo number_format($receipt->total_amount, 2); ?></td>
+                                <td style="color:black" colspan="2">Jumlah Keseluruhan</td>
+                                <td style="color:black" > RM <?php echo number_format($receipt->total_amount, 2); ?></td>
                             </tr>
                         </tfoot>
                     </table>
